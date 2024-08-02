@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+<div class='container py-5' style='max-width: 600px'>
+
+<div id='loading-screen'>
+    <div id='loading-spinner'></div>
+    <div id='loading-text'>Registering...</div>
+</div>
+
+</div>
+
+{% endblock %}
+
+<script>
+    setTimeout(function() {
+        var redirectUrl = document.querySelector('meta[name="redirect-url"]').content;
+        window.location.href = redirectUrl;
+    }, 3000);  // Change the delay to the desired value (in milliseconds)
+</script>
+
+

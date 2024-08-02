@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+{% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade show pb-0" role="alert">
+        <ul class="messages list-unstyled">
+            <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+                <strong>{{ message }}</strong>
+            </li>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+
+<div class='container py-5' style='max-width: 600px'>
+    <div> 
+        <img src='https://framerusercontent.com/images/BsjIjNRJS9Y6YK3mB7eG2jZvBcI.png?scale-down-to=512'>
+    </div>
+    <br>
+    <br>
+    <h1>Tags</h1>
+
+    <form method='post' action="{% if matching_tags %}{% url 'seeker_roles_tags' search_query=form.search_query.value %}{% else %}{% url 'seeker_roles_tags' %}{% endif %}">
+        {% csrf_token %}
+        {% if matched_tags|length == 5 %}
+            <input type="text" name="search_query" value="{{ roles_tags_form.search_query.value }}" class="form-control" readonly>
+        {% else %}
+            {{ roles_tags_form.search_query }}
+        {% endif %}
+        <button type='submit' class="btn btn-outline-primary mt-3" {% if matched_tags|length == 5 %}disabled{% endif %}>Add Tag</button>
+
+        <a href="{% url 'clear_tags' %}">
+            <button type='button' class="btn btn-outline-danger mt-3">Clear Tags</button>
+        </a>
+        
+        <a href="{% url 'seeker_dashboard' %}">
+            <button type='button' class="btn btn-outline-secondary mt-3">Next</button>
+        </a>
+    </form>
+    <ul>
+        {% if matched_tags %}
+            {% for matched_tag in matched_tags %}
+                <li>{{ matched_tag }}</li>
+            {% endfor %}
+        {% else %}
+            <li>No matched tags</li>
+        {% endif %}
+    </ul>
+</div>
+
+{% endblock %}

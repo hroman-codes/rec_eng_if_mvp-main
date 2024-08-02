@@ -1,0 +1,33 @@
+{% load static %}
+
+{% block page_content %}
+<nav class="navbar navbar-expand-lg pt-3 pb-3">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img alt="The Seeker Logo" src="{% static 'images/seekerlogo.png' %}" width="200" height="30">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link navbar__text" href="#">Recomendations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link navbar__text" href="#">Community</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link navbar__text" href="#"><i class="bi bi-person-circle settingsIcon"></i></a>
+                </li>
+            </ul>   
+        </div>
+    </div>
+</nav>
+
+<div class='container'>
+    <div class='row'>
+        <div class='navbar--border'></div>
+    </div>
+</div>
+{% endblock %} 

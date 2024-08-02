@@ -1,0 +1,124 @@
+/* ======================================
+    Global Variables
+========================================= */
+:root {
+     --seekerBaseColor: #4487C8;
+     --seekerWhiteSmoke: #f3f3f3;
+     --seekerBrightBlue: #3498db;
+     --seekerBorder: #ECD660;
+     --seekerFontFamily: 'JetBrains Mono', monospace;
+}
+
+/* ======================================
+    BASE CSS
+========================================= */
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* ======================================
+  NAV
+========================================= */
+.settingsIcon {
+  font-size: 24px;
+}
+
+.navbar__text {
+  color: var(--seekerBaseColor) !important;
+  font-family: var(--seekerFontFamily);
+}
+
+.navbar--border {
+  width: 100%;
+  height: 100%;
+  border: 1.23px var(--seekerBorder) solid;
+}
+
+
+/* ======================================
+    REGISTRATION PAGE
+========================================= */
+.registration-form {
+  max-width: 600px;
+}
+
+.registration-form__border {
+  border: 2px solid var(--seekerBaseColor) !important;
+}
+
+.registration-form__heading {
+  color: var(--seekerBaseColor);
+  font-size: 20px;
+  font-family: var(--seekerFontFamily);
+}
+
+.registration-form__button {
+  border: 2px solid var(--seekerBaseColor) !important;
+  color: var(--seekerBaseColor) !important;;
+}
+
+.registration-form__button:hover {
+  background-color: var(--seekerBorder) !important;
+  color: white !important;
+}
+
+
+label[for="id_first_name"] {
+  color: var(--seekerBaseColor);
+  font-family: var(--seekerFontFamily)
+}
+
+label[for="id_last_name"] {
+  color: var(--seekerBaseColor);
+  font-family: var(--seekerFontFamily)
+}
+
+label[for="id_email"] {
+  color: var(--seekerBaseColor);
+  font-family: var(--seekerFontFamily)
+}
+
+label[for="id_password1"] {
+  color: var(--seekerBaseColor);
+  font-family: var(--seekerFontFamily)
+}
+
+label[for="id_password2"] {
+  color: var(--seekerBaseColor);
+  font-family: var(--seekerFontFamily)
+}
+
+
+/* ======================================
+    LOGIN PAGE
+========================================= */
+.login-form {
+  max-width: 485px;
+}
+
+.login-form__border {
+  border: 2px solid var(--seekerBaseColor) !important;
+}
+
+.login-form__heading {
+  color: var(--seekerBaseColor);
+  font-size: 20px;
+  font-family: var(--seekerFontFamily);
+}
+
+.login-form__button {
+  border: 2px solid var(--seekerBaseColor) !important;
+  color: var(--seekerBaseColor) !important;;
+}
+
+.login-form__button:hover {
+  background-color: var(--seekerBorder) !important;
+  color: white !important;
+}
+
+
+label[for="id_password"] {
+  color: var(--seekerBaseColor);
+  font-family: var(--seekerFontFamily)
+}

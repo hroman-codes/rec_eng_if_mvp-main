@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+{% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade show pb-0" role="alert">
+        <ul class="messages list-unstyled">
+            <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+                <strong>{{ message }}</strong>
+            </li>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+
+<div class='container py-5' style='max-width: 600px'>
+    <div> 
+        <img src='https://framerusercontent.com/images/BsjIjNRJS9Y6YK3mB7eG2jZvBcI.png?scale-down-to=512'>
+    </div>
+    <br>    
+    <div class='text-center'>
+        <a href="{% url 'seeker_login' %}">Login</a> <br>
+        <a href="https://www.theseeker.ai/">Go back to home</a>
+    </div>
+
+</div>
+
+{% endblock content %}

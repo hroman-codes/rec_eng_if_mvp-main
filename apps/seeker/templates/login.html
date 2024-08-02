@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class='container-fluid py-3 login-form'>
+    <div class='row'>
+        <form method='POST' class='card p-3 mt-5 registration-form__border' autocomplete='off'>
+            <h5 class='pt-3 pb-3 login-form__heading'>Login</h5>
+            {% csrf_token %}
+            {{ login_form|crispy }}
+            <button type='submit' class="btn btn-outline-primary mt-3 login-form__button">Submit</button>
+        </form>
+    </div>
+    <p class="text-center">If you dont' have an account, <a href="{% url 'seeker_registration' %}">register</a> instead.</p>
+</div>
+
+{% endblock %}

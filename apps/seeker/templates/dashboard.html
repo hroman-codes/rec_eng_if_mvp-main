@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+{% for message in messages %}
+  <div class="alert alert-success alert-dismissible fade show pb-0" role="alert">
+    <ul class="messages list-unstyled">
+        <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+            <strong>{{ message }}</strong>
+        </li>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </ul>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endfor %}
+
+
+<div> 
+    <img src='https://framerusercontent.com/images/BsjIjNRJS9Y6YK3mB7eG2jZvBcI.png?scale-down-to=512'>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Seeker</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="False" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        {% if seeker.is_authenticated %}
+        
+        <li class="nav-item">
+          <a class="nav-link" href='{% url 'seeker_logout' %}'>Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Welcome, {{seeker.first_name}}</a>
+        </li>
+  
+        {% else %}
+  
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+  
+        {% endif %}
+      </ul>
+    </div>
+</nav>
+
+<!-- ... (previous code) -->
+
+<div class='container py-5' style='max-width: 1000px'>
+  <h1>Recommendations</h1>
+
+  {% for cv_entry in cv_entries %}
+    <!-- Modal for each CSV entry -->
+    <div class="modal fade" id="csvModal{{ cv_entry.id }}" tabindex="-1" role="dialog" aria-labelledby="csvModalLabel{{ cv_entry.id }}" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="csvModalLabel{{ cv_entry.id }}">CSV Entry Details</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>ID: {{ cv_entry.id }}</p>
+            <p>First Name: {{ cv_entry.first_name }}</p>
+            <p>Last Name: {{ cv_entry.last_name }}</p>
+            <p>Company: {{ cv_entry.company }}</p>
+            <p>Position: {{ cv_entry.position }}</p>
+            <p>Email: {{ cv_entry.email }}</p>
+            <p>Phone Number: {{ cv_entry.phone_number }}</p>
+            <p>Mini Bio: {{ cv_entry.mini_bio }}</p>
+            <p>Notes: {{ cv_entry.notes }}</p>
+          </div>
+          
+          <div class="modal-footer">
+            {% comment %} <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContactModal{{ cv_entry.id }}">Edit Contact Information</button> {% endcomment %}
+            <a href="{% url 'seeker_dashboard' %}?edit={{ cv_entry.id }}" class="btn btn-primary">Edit</a>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for adding contact information -->
+    <div class="modal fade" id="addContactModal{{ cv_entry.id }}" tabindex="-1" role="dialog" aria-labelledby="addContactModalLabel{{ cv_entry.id }}" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addContactModalLabel{{ cv_entry.id }}">Edit Contact Information</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method='post' action="{% url 'add_contact_info' cv_entry.id %}">
+              {% csrf_token %}
+              {{ contact_form.as_p }}
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}  
+  
+  <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Company</th>
+            <th>Position</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cv_entry in cv_entries %}
+            <tr>
+                <td><button type="button" class="btn btn-link m-0 p-0" data-bs-toggle="modal" data-bs-target="#csvModal{{ cv_entry.id }}">{{ cv_entry.id }}</button></td>
+                <td>{{ cv_entry.first_name }}</td>
+                <td>{{ cv_entry.last_name }}</td>
+                <td>{{ cv_entry.company }}</td>
+                <td>{{ cv_entry.position }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'seeker_roles_tags' %}">
+    <button type='submit' class="btn btn-outline-primary mt-3">Update Tags</button>
+  <a/>
+</div>
+
+{% if request.GET.edit %}
+    <script>
+        $(document).ready(function() {
+            let editContactId = '{{ request.GET.edit }}';
+            let modalId = '#addContactModal' + editContactId;
+            $(modalId).modal('show');
+        });
+    </script>
+{% endif %}
+
+{% endblock %}

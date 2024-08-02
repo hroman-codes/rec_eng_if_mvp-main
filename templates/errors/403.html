@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+{% for message in messages %}
+  <div class="alert alert-success alert-dismissible fade show pb-0" role="alert">
+    <ul class="messages list-unstyled">
+        <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+            <strong>{{ message }}</strong>
+        </li>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </ul>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endfor %}
+
+<div> 
+    <img src='https://framerusercontent.com/images/BsjIjNRJS9Y6YK3mB7eG2jZvBcI.png?scale-down-to=512'>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Seeker</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="False" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        {% if seeker.is_authenticated %}
+        
+        <li class="nav-item">
+          <a class="nav-link" href='{% url 'seeker_logout' %}'>Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Welcome, {{seeker.first_name}}</a>
+        </li>
+  
+        {% else %}
+  
+        <li class="nav-item">
+          <a class="nav-link" href='{% url 'seeker_login' %}'>Login</a>
+        </li>
+  
+        {% endif %}
+      </ul>
+    </div>
+</nav>
+
+<div class='container py-5' style='max-width: 1000px'>  
+    In the mean time The Seeker Team put this video together just for you! We want you to have a great experience here, and accelerate your job search.
+    This video will help you understand how we plan to help you do just that.
+    <br>
+    <br>
+    
+    <div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/21f4840dd4664059b3e9f401262c33cc?sid=41054987-9a39-4a4e-a2f5-06ca934fc357" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+    <br>
+    <div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/35071172eb6143ba9fb074092d5d57bb?sid=8ff1c0ef-e426-4b46-b767-4423b59cda2c" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+</div>
+
+
+{% endblock %}

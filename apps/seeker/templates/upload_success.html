@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+{% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade show pb-0" role="alert">
+        <ul class="messages list-unstyled">
+            <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+                <strong>{{ message }}</strong>
+            </li>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+
+<div class='container py-5' style='max-width: 600px'>
+    <div> 
+        <img src='https://framerusercontent.com/images/BsjIjNRJS9Y6YK3mB7eG2jZvBcI.png?scale-down-to=512'>
+    </div>
+    <br>
+    <br>
+    <h1>Upload Successful</h1>
+    <p>Your CSV file has been uploaded and processed.</p>
+    <a href='{% url 'seeker_roles_tags' %}'>
+        <button type="button" class="btn btn-outline-primary mt-3">Next</button>
+    </a>
+</div>
+
+{% endblock %}
