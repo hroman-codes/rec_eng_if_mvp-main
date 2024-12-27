@@ -57,14 +57,37 @@ const Footer = () => {
                 display={'flex'} 
                 justifyContent={'center'}
             >
+                <Typography
+                    variant="h6"
+                    noWrap
+                    sx={{
+                        ml: 1,
+                        fontFamily: 'Lato',
+                        fontWeight: 600,
+                        fontStyle: 'normal',
+                        fontSize: '25px',
+                        color: '#fff',
+                        textDecoration: 'none'                        
+                    }}
+                >
+                    Built By: <Link href="https://hrcodes.fly.dev" target="_blank">hroman_codes</Link>
+                </Typography>
+            </Grid>
+            
+
+            <Grid 
+                xs={12}
+                sm={12}
+                md={12} 
+                lg={12}
+                display={'flex'} 
+                justifyContent={'center'}
+            >
                 <Box variant='div' component={'div'} padding={1}>
-                    <Link href="https://www.linkedin.com/company/theseeker/"><LinkedInSVGIcon sx={{fontSize: '2.5rem'}}/></Link>
-                </Box>
-                <Box variant='div' component={'div'} padding={1}> 
-                    <Link href="#"><FacebookSVGIcon sx={{fontSize: '2.5rem'}}/></Link>
+                    <Link href="https://www.linkedin.com/in/heribertoroman/"><LinkedInSVGIcon sx={{fontSize: '2.5rem'}}/></Link>
                 </Box>
                 <Box variant='div' component={'div'} padding={1}>
-                    <Link href="#"><MailSVGIcon sx={{fontSize: '2.5rem'}}/></Link>
+                    <Link href="mailto:romanh99@gmail.com"><MailSVGIcon sx={{fontSize: '2.5rem'}}/></Link>
                 </Box>
             </Grid>
         </Grid>
