@@ -14,16 +14,12 @@ function Hero() {
     window.location.href = '/seeker/register/'
   }
 
-  const handleApplyClick = async () => {
-    window.open('https://www.theseeker.ai/book-a-time', '_blank');
-  }
-
   return (
     <Box
       sx={{
         color: '#1B1A1A',         
         paddingTop: '20px',
-        paddingBottom: '40px',
+        paddingBottom: '20px',
         paddingLeft: '0px',
         paddingRight: '0px',
         textAlign: 'center',
@@ -61,7 +57,7 @@ function Hero() {
                   fontSize: 'clamp(2rem, 10vw, 4rem )'
               }}
             >
-              Stop throwing your <br/> resume into an abyss
+              Filter through your <br/> LinkedIn connections via tags
             </Typography>
         </Grid>
         <Grid xs={2} display={isScreenSizeUnder900px ? 'none' : 'flex'} alignItems="left" justifyContent="left">
@@ -93,7 +89,9 @@ function Hero() {
                     fontSize: 'clamp(0.75rem, 4vw, 1.25rem )'
                 }}
               >
-                There’s a better way to find a job fast. We help you <br/> get your job search moving quickly 
+                Upload your LinkedIn connections and filter
+                  
+                <br/> via tags to connect faster 
             </Typography>
         </Grid>
         <Grid xs={2} display={isScreenSizeUnder900px ? 'none' : 'flex'} alignItems="center" justifyContent="center">
@@ -104,71 +102,6 @@ function Hero() {
           />
         </Grid>
       </Grid>
-
-      <Box
-        sx={{ 
-              flex: '30 1 content',
-            }}
-      >
-        <Grid container spacing={3}>
-          <Grid xs display='flex' justifyContent='end' alignItems='center'>
-            <Button 
-              variant='contained'
-              size='small'
-              onClick={handleApplyClick}
-              sx={{
-                    borderRadius: '20px',
-                    color: '#ECD660',
-                    width: '8rem',
-                  }}
-              >
-                <Typography
-                  sx={{
-                      color: '#fff',
-                      fontSize: '13px',
-                      fontFamily: 'Lato',
-                      fontWeight: 700,
-                      fontStyle: 'normal',
-                      lineHeight: 'normal',
-                      textTransform: 'none'
-                    }}
-                >
-                  Apply
-                </Typography>
-            </Button>
-          </Grid>
-
-          <Grid xs display='flex' justifyContent='start' alignItems='center'>
-              <Button 
-                variant='contained'
-                size='small'
-                onClick={handleRegisterClick}
-                sx={{
-                      borderRadius: '20px',
-                      width: '8rem',
-                      backgroundColor: '#ECD660',
-                      '&:hover': {
-                        backgroundColor: '#ECD660'
-                      }
-                    }}
-                >
-                  <Typography
-                    sx={{
-                        color: '#4187C9',
-                        fontSize: '13px',
-                        fontFamily: 'Lato',
-                        fontWeight: 700,
-                        fontStyle: 'normal',
-                        lineHeight: 'normal',
-                        textTransform: 'none'
-                      }}
-                  >
-                    Sign up
-                  </Typography>
-              </Button>        
-          </Grid>
-        </Grid>
-      </Box>
     </Box>
   );
 }

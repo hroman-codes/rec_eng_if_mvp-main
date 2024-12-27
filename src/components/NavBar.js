@@ -11,8 +11,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import SeekerSvgIcon from './icons/SeekerSvgIcon';
 
-const pages = ['About', 'Pricing', 'Login', 'Sign Up'];
-const disabledPages = ['About', 'Pricing'];
+const pages = ['Login'];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -53,7 +52,7 @@ function NavBar() {
               textDecoration: 'none',
             }}
           >
-            The Seeker
+            Linktag
           </Typography>
 
           {/* Mobile display of menu  */}
@@ -102,10 +101,9 @@ function NavBar() {
                 <MenuItem 
                   key={page} 
                   onClick={handleCloseNavMenu}
-                  disabled={disabledPages.includes(page)}
                 >
                   <a
-                    href={page === 'Login' ? '/seeker/login/' : page === 'Sign Up' ? '/seeker/register/' : '#'}
+                    href={page === 'Login' ? 'http://127.0.0.1:8000/seeker/login/' : page === 'Sign Up' ? 'http://127.0.0.1:8000/seeker/register/' : '#'}
                     style={{ textDecoration: 'none', color: '#4187C9' }}
                   >
                     <Typography 
@@ -145,9 +143,7 @@ function NavBar() {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                disabled={disabledPages.includes(page)}
-                component={disabledPages.includes(page) ? 'div' : 'a'} // Use 'div' instead of 'a' for disabled pages
-                href={page === 'Login' ? '/seeker/login/' : undefined || page === 'Sign Up' ? '/seeker/register/' : undefined}
+                href={page === 'Login' ? 'http://127.0.0.1:8000/seeker/login/' : undefined || page === 'Sign Up' ? 'http://127.0.0.1:8000/seeker/register/' : undefined}
                 target="_blank"
                 sx={
                     { 
@@ -177,7 +173,7 @@ function NavBar() {
           >
 
           <a 
-            href='https://www.theseeker.ai/book-a-time' 
+            href='http://127.0.0.1:8000/seeker/register/' 
             style={{ textDecoration: 'none' }}
             target="_blank"
             rel="noreferrer"
@@ -204,7 +200,7 @@ function NavBar() {
                       textTransform: 'none'
                     }}
                 >
-                  Apply to our FREE community
+                  Register
                 </Typography>
             </Button>
           </a>

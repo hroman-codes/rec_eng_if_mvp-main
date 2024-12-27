@@ -46,13 +46,11 @@ const HPSeekerCards = () => {
                 component="div" 
                 paddingBottom={2}
               >
-                Start Fast
+                Download CSV Connections
               </Typography>
               <Typography variant='body2'>
-                Our app helps you quickly  
-                articulate your value
-                proposition, identify target companies, and organize your
-                materials.
+                Go to your settings page. Click on data privacy. Click on get a copy of your data. 
+                Export your connections. 
               </Typography>
             </CardContent>
         </Card>
@@ -92,13 +90,10 @@ const HPSeekerCards = () => {
                 component="div" 
                 paddingBottom={2}
               >
-                Track your <br /> Progress
+                Upload <br /> CSV
               </Typography>
               <Typography variant='body2'>
-                The Seeker lets you see how
-                your job search progresses each
-                week and identify 
-                things holding you back.
+                Find your CSV file and upload it. Our system will automatically filter your connections.
               </Typography>
             </CardContent>
         </Card>
@@ -138,12 +133,12 @@ const HPSeekerCards = () => {
                 component="div" 
                 paddingBottom={2}
               >
-                Generate <br /> Referrals
+                Insert <br /> Tags
               </Typography>
               <Typography variant='body2'>
-                Our community and proven
-                techniques get you introduced to your target
-                companies faster.
+                Add up to 5 tags aka positions that you would like to search from your connections.
+                For example: Software Engineer, Product Manager, UX Designer, Data Scientist,
+                Technical Recruiter.
               </Typography>
             </CardContent>
         </Card>
@@ -183,12 +178,10 @@ const HPSeekerCards = () => {
                 component="div" 
                 paddingBottom={2}
               >
-                Stay <br /> accountable
+                Look Through <br /> Recommendations
               </Typography>
               <Typography variant='body2'>
-                We match you with a weekly
-                peer group to keep you
-                connected and accountable.
+                You will be able to see your connections that match your tags.
               </Typography>
             </CardContent>
         </Card>

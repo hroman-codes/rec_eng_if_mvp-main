@@ -31,9 +31,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*', 'http://127.0.0.1:8000/', 'theseeker-ai-d39e49c962dd.herokuapp.com', 'https://theseeker-ai-d39e49c962dd.herokuapp.com/', 'https://theseeker-ai.herokuapp.com/']
+ALLOWED_HOSTS = ['*', 'http://127.0.0.1:8000/',]
 
 # Application definition
 
@@ -168,7 +168,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 LOGIN_URL = '/login/'
 
