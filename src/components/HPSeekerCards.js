@@ -181,7 +181,8 @@ const HPSeekerCards = () => {
                 Look Through <br /> Recommendations
               </Typography>
               <Typography variant='body2'>
-                You will be able to see your connections that match your tags.
+                You will be able to see your connections that match your tags. 
+                Review and edit detailed information.
               </Typography>
             </CardContent>
         </Card>

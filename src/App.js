@@ -15,9 +15,7 @@ function App() {
 
       <Container>
         <HPSeekerCards />
-      </Container>
-      
-      <ContentBannerThree />
+      </Container> 
 
       <Container maxWidth='xl'>
         <Footer />

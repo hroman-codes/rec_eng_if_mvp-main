@@ -19,7 +19,7 @@ const ContentBannerTwo = () => {
               wordWrap: 'break-word',
             }}
           >
-            Use a Proven Path
+            
           </Typography>
         </Grid>
       </Grid>
