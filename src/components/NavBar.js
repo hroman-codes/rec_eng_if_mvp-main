@@ -103,7 +103,7 @@ function NavBar() {
                   onClick={handleCloseNavMenu}
                 >
                   <a
-                    href={page === 'Login' ? 'http://127.0.0.1:8000/seeker/login/' : page === 'Sign Up' ? 'http://127.0.0.1:8000/seeker/register/' : '#'}
+                    href={page === 'Login' ? '/seeker/login/' : page === 'Sign Up' ? '/seeker/register/' : '#'}
                     style={{ textDecoration: 'none', color: '#4187C9' }}
                   >
                     <Typography 
@@ -143,7 +143,7 @@ function NavBar() {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                href={page === 'Login' ? 'http://127.0.0.1:8000/seeker/login/' : undefined || page === 'Sign Up' ? 'http://127.0.0.1:8000/seeker/register/' : undefined}
+                href={page === 'Login' ? '/seeker/login/' : undefined || page === 'Sign Up' ? '/seeker/register/' : undefined}
                 target="_blank"
                 sx={
                     { 
@@ -173,7 +173,7 @@ function NavBar() {
           >
 
           <a 
-            href='http://127.0.0.1:8000/seeker/register/' 
+            href='/seeker/register/' 
             style={{ textDecoration: 'none' }}
             target="_blank"
             rel="noreferrer"
