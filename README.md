@@ -1,20 +1,17 @@
-![The Seeker](https://app.brandmark.io/v3/brand/design-svg.php?id=CAB6C4A3F8A14CA9BEB0CF8D71682D23&type=logo-files&template=color)
-This repository contains the code necessary for the recommendation engine interface mvp for theseeker.ai site. The instructions below are subject to change as the codebase and the team grows.
-
-### Demo Link: https://theseeker-ai-d39e49c962dd.herokuapp.com
-
-### Codebase organization
-Our codebase leverages Docker/Docker Compose to easily spin up a development environment on a developer's machine.
+### Demo Link: TBD
 
 #### Stack
- - Backend -> Python/[Django](https://www.djangoproject.com/)
-    - Testing -> [Django Test](https://docs.djangoproject.com/en/4.2/topics/testing/)
- - Frontend -> [Django Template Language (DTL)](https://docs.djangoproject.com/en/4.2/topics/templates/)
-    - Testing -> Django Test / [django-test-plus](https://pypi.org/project/django-test-plus/)
- - Ops -> [Docker](https://www.docker.com/)
- - Database -> [Postgres](https://www.postgresql.org/)
- - Cache -> [Redis](https://redis.io/)
- - CI -> [Github Actions](https://github.com/features/actions)
+ - Backend
+   - Python/[Django](https://www.djangoproject.com/)
+   - Testing -> [Django Test](https://docs.djangoproject.com/en/4.2/topics/testing/)
+ - Frontend
+   - [Django Template Language (DTL)](https://docs.djangoproject.com/en/4.2/topics/templates/)
+   - [React with Material UI](https://mui.com/material-ui/getting-started/)
+   - Testing -> Django Test / [django-test-plus](https://pypi.org/project/django-test-plus/)
+ - Database
+   - [Postgres](https://www.postgresql.org/)
+ - CI
+   - [Github Actions](https://github.com/features/actions)
 
 #### Directories
 At the base of the repo, you'll currently find the following directories:
@@ -62,8 +59,6 @@ theseeker_ai/
 
 You'll need to download & install a few tools before you can begin to code.
 1. [Python](https://www.python.org/downloads/)
-2. [Django](https://docs.djangoproject.com/en/4.2/topics/install/#installing-an-official-release-with-pip)
-3. [Docker for Mac](https://docs.docker.com/desktop/mac/install/)
 
 ### Branching Strategy
 <b>Gitflow:</b> an alternative Git branching model that involves the use of feature branches and multiple primary branches.
@@ -112,6 +107,6 @@ Anything Else?
 ```
 
 #### Database Structure
-Source: [The Seeker Entity Relationship Diagram (ERD)](https://dbdiagram.io/d/648bed20722eb774940fe749)
+Source: [Linktag Entity Relationship Diagram (ERD)](https://dbdiagram.io/d/648bed20722eb774940fe749)
 
 ![The Seeker Entity Relationship Diagram (ERD)](images/The_Seeker_Entity_Relationship_Diagram_ERD.png)

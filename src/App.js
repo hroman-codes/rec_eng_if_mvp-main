@@ -2,7 +2,6 @@ import './App.css';
 import Container from '@mui/material/Container'
 import Hero from './components/Hero';
 import ContentBannerTwo from './components/ContentBannerTwo';
-import ContentBannerThree from './components/ContentBannerThree';
 import HPSeekerCards from './components/HPSeekerCards';
 import Footer from './components/Footer';
 

@@ -5,6 +5,10 @@
 {% load static %}
 
 <div class='container-fluid py-2 registration-form'>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
+        <img src="{% static 'images/user-tag-solid.svg' %}" alt="Upload Icon" class="upload-icon" style="width: 48px; height: 48px; margin-bottom: 1rem;">
+        <h2 style="margin: 0; color: #4187C9;">Linktag</h2>
+    </div>
     <div class='row'>
         <form method='POST' class='card p-3 mt-5 registration-form__border' autocomplete='off'>
             <h5 class='pt-3 pb-3 registration-form__heading'>Register with The Seeker</h5>
