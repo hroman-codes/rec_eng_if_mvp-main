@@ -6,6 +6,7 @@ crispy-bootstrap5==0.7
 dj-database-url==2.0.0
 Django==4.2.3
 django-crispy-forms==2.0
+django-environ==0.9.0
 django-phonenumber-field==7.1.0
 django-widget-tweaks==1.4.12
 djangorestframework==3.14.0
@@ -14,6 +15,8 @@ Faker==18.11.1
 gunicorn==21.2.0
 packaging==23.1
 phonenumbers==8.13.17
+psycopg2==2.9.10
+psycopg2-binary==2.9.10
 python-dateutil==2.8.2
 python-dotenv==1.0.0
 pytz==2023.3.post1

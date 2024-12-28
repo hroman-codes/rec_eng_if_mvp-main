@@ -16,24 +16,37 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from django.conf import settings
+import environ
 
-load_dotenv()
+env = environ.Env(  # <-- Updated!
+    # set casting, default value
+    DEBUG=(bool, False),
+)
+
+# load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent <----old
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Fly.io way 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Take environment variables from .env file
+environ.Env.read_env(BASE_DIR / '.env')  # <-- Updated
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['*', 'http://127.0.0.1:8000/',]
+ALLOWED_HOSTS = ['*', 'http://127.0.0.1:8000/', 'https://linktag.fly.dev', '.fly.dev']
+
+CSRF_TRUSTED_ORIGINS = ['https://*.fly.dev']
 
 # Application definition
 
@@ -43,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     
     # 3rd-party apps
@@ -63,8 +77,8 @@ AUTH_USER_MODEL = 'seeker.Seeker'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -99,9 +113,7 @@ WSGI_APPLICATION = 'rec_eng_if_mvp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL')
-    )
+    'default': env.db()
 }
 
 
