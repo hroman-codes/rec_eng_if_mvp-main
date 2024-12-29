@@ -17,6 +17,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from django.conf import settings
 import environ
+import sentry_sdk
 
 env = environ.Env(  # <-- Updated!
     # set casting, default value
