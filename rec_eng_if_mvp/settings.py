@@ -44,6 +44,10 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
+sentry_sdk.init(
+    dsn=env.str('SENTRY_DSN')
+)
+
 ALLOWED_HOSTS = ['*', 'http://127.0.0.1:8000/', 'https://linktag.fly.dev', '.fly.dev']
 
 CSRF_TRUSTED_ORIGINS = ['https://*.fly.dev']
