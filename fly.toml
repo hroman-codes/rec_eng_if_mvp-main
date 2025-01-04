@@ -8,6 +8,8 @@ primary_region = 'ewr'
 console_command = '/code/manage.py shell'
 
 [build]
+[build.args]
+    STATIC_DIR = "/app/staticfiles"
 
 [deploy]
   release_command = 'python manage.py migrate --noinput'
@@ -29,5 +31,5 @@ console_command = '/code/manage.py shell'
   cpus = 1
 
 [[statics]]
-  guest_path = '/code/static'
+  guest_path = "/app/staticfiles"
   url_prefix = '/static/'

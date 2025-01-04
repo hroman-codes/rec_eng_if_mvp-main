@@ -2,3 +2,14 @@ fly.toml
 .git/
 *.sqlite3
 env
+
+echo "node_modules
+npm-debug.log
+Dockerfile
+.dockerignore
+.git
+.gitignore
+.env
+*.pyc
+__pycache__
+.DS_Store" > .dockerignore

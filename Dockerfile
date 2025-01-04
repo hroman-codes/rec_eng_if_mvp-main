@@ -1,30 +1,58 @@
-ARG PYTHON_VERSION=3.13-slim
+# Stage 1: Build front-end assets
+FROM node:16 as build-stage
+WORKDIR /app
 
-FROM python:${PYTHON_VERSION}
+# Install dependencies
+COPY package*.json ./
+RUN npm install
 
+# Copy all frontend source files
+COPY public/ public/
+COPY src/ src/
+COPY *.js ./
+COPY *.json ./
+
+# Build frontend
+RUN npm run build
+
+# Stage 2: Set up Django with built assets
+FROM python:3.11-slim
+
+# Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# install psycopg2 dependencies.
+WORKDIR /app
+
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    gcc \
+    build-essential \
+    python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /code
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-WORKDIR /code
+# Copy Django project files
+COPY manage.py .
+COPY apps/ apps/
+COPY rec_eng_if_mvp/ rec_eng_if_mvp/
+COPY templates/ templates/
+COPY static/ static/
+COPY staticfiles/ staticfiles/
 
-COPY requirements.txt /tmp/requirements.txt
-RUN set -ex && \
-    pip install --upgrade pip && \
-    pip install -r /tmp/requirements.txt && \
-    rm -rf /root/.cache/
-COPY . /code
+# Copy built assets from build stage to Django static directory
+COPY --from=build-stage /app/build /app/staticfiles/build
 
-ENV SECRET_KEY "mqPOaI6SAP0nWWXYAOQsXtrb6iOqbEaLDumWVaUxxWifea8OSL"
+# Collect static files
 RUN python manage.py collectstatic --noinput
 
+# Make sure static files directory is accessible
+RUN chmod -R 755 /app/staticfiles
+
+# Expose port
 EXPOSE 8000
 
-CMD ["gunicorn","--bind",":8000","--workers","2","rec_eng_if_mvp.wsgi"]
+# Run gunicorn
+CMD gunicorn rec_eng_if_mvp.wsgi:application --bind 0.0.0.0:8000

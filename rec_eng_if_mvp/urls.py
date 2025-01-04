@@ -14,17 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from . import views
-from rec_eng_if_mvp.views import (
-        custom_404_view,
-    ) 
+from django.conf.urls.static import static
+from django.conf import settings
 
-# TODO look into adding the error pages to the url patterns. DO I need to do this? 
+from rec_eng_if_mvp.views import (
+    custom_404_view,
+    index,  
+) 
+
 urlpatterns = [
-    path('', views.index, name='index'),
     path('seeker/', include('apps.seeker.urls')),
     path('admin/', admin.site.urls),
-]
+    
+    # This should be the last pattern in your list
+    re_path(r'^.*', index, name='index'),  # Match all other routes to React
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
  
 handler404 = custom_404_view
