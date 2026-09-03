@@ -37,6 +37,7 @@ class ReadinessTests(unittest.TestCase):
                     self.request.setsockopt(
                         socket.SOL_SOCKET, socket.SO_LINGER, struct.pack("ii", 1, 0)
                     )
+                    self.request.close()
                 elif response == "stall":
                     time.sleep(2)
                 else:
@@ -71,7 +72,9 @@ class ReadinessTests(unittest.TestCase):
         result, requests, _ = self.run_probe(["reset", "unavailable", "ok"])
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(requests, 3)
-        self.assertIn("curl: (56)", result.stderr)
+        # curl can report an early connection close as an empty reply (52)
+        # or receive/reset failure (56), depending on the OS and socket timing.
+        self.assertRegex(result.stderr, r"curl: \((52|56)\)")
 
     def test_permanent_failure_still_fails(self):
         result, requests, elapsed = self.run_probe(["unavailable"])
