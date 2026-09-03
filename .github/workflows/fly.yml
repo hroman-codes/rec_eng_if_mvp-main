@@ -34,6 +34,8 @@ jobs:
           python-version: '3.11'
           cache: pip
       - run: pip install -r requirements.txt
+      - name: Test container readiness retries
+        run: python .github/tests/test_readiness.py
       - run: python manage.py test apps/seeker/tests --settings=rec_eng_if_mvp.test_settings --noinput
       - run: python manage.py makemigrations --check --dry-run --settings=rec_eng_if_mvp.test_settings
       - run: npm ci
@@ -52,7 +54,9 @@ jobs:
             -e SECRET_KEY=ci-only-placeholder -e DATABASE_URL=sqlite:///:memory: \
             -e SENTRY_DSN= linktag-ci
           trap 'docker logs linktag-ci; docker rm --force linktag-ci' EXIT
-          curl --fail --retry 15 --retry-connrefused --retry-delay 2 http://127.0.0.1:8000/healthz/
+          # Docker can accept/reset connections before Gunicorn is listening.
+          # Retry startup errors, but never wait indefinitely or hide a failed boot.
+          curl --fail --silent --show-error --output /dev/null --retry 15 --retry-all-errors --retry-delay 2 --retry-max-time 60 --connect-timeout 2 --max-time 5 http://127.0.0.1:8000/healthz/
           curl --fail --silent http://127.0.0.1:8000/ | grep 'id="root"'
           curl --fail --silent http://127.0.0.1:8000/seeker/login/ | grep 'Sign in to Linktag'
           curl --fail --silent --output /dev/null http://127.0.0.1:8000/static/css/linktag.css
