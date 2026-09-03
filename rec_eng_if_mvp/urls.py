@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include, re_path
+from django.urls import path, include
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
@@ -28,8 +28,8 @@ urlpatterns = [
     path('seeker/', include('apps.seeker.urls')),
     path('admin/', admin.site.urls),
     
-    # This should be the last pattern in your list
-    re_path(r'^.*', index, name='index'),  # Match all other routes to React
+    path('', index, name='index'),
+    path('healthz/', views.health, name='health'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
  
 handler404 = custom_404_view

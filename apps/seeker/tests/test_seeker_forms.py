@@ -44,11 +44,11 @@ class SeekerRegistrationFormTest(TestCase):
         form = SeekerRegistrationForm()
 
         # Check that the field widgets have the expected attributes
-        self.assertEqual(form.fields['first_name'].widget.attrs, {'maxlength': '50', 'class': 'form-control'})
-        self.assertEqual(form.fields['last_name'].widget.attrs, {'maxlength': '50', 'class': 'form-control'})
-        self.assertEqual(form.fields['email'].widget.attrs, {'maxlength': '254', 'class': 'form-control', 'autofocus': True})
-        self.assertEqual(form.fields['password1'].widget.attrs, {'autocomplete': 'new-password', 'class': 'form-control'})
-        self.assertEqual(form.fields['password2'].widget.attrs, {'autocomplete': 'new-password', 'class': 'form-control'})
+        self.assertEqual(form.fields['first_name'].widget.attrs, {'maxlength': '50', 'class': 'form-control', 'autocomplete': 'given-name', 'placeholder': 'First name'})
+        self.assertEqual(form.fields['last_name'].widget.attrs, {'maxlength': '50', 'class': 'form-control', 'autocomplete': 'family-name', 'placeholder': 'Last name'})
+        self.assertEqual(form.fields['email'].widget.attrs, {'maxlength': '254', 'class': 'form-control', 'autocomplete': 'email', 'placeholder': 'you@example.com'})
+        self.assertEqual(form.fields['password1'].widget.attrs, {'autocomplete': 'new-password', 'class': 'form-control', 'placeholder': 'At least 8 characters'})
+        self.assertEqual(form.fields['password2'].widget.attrs, {'autocomplete': 'new-password', 'class': 'form-control', 'placeholder': 'Re-enter your password'})
         
 
     def test_password_length_validation(self):

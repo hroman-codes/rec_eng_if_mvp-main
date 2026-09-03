@@ -1,23 +1,19 @@
-{% extends 'base.html' %}
-{% block content %}
-
-{% load crispy_forms_tags %}
-{% load static %}
-
-<div class='container-fluid py-2 registration-form'>
-    <div style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
-        <img src="{% static 'images/user-tag-solid.svg' %}" alt="Upload Icon" class="upload-icon" style="width: 48px; height: 48px; margin-bottom: 1rem;">
-        <h2 style="margin: 0; color: #4187C9;">Linktag</h2>
-    </div>
-    <div class='row'>
-        <form method='POST' class='card p-3 mt-5 registration-form__border' autocomplete='off'>
-            <h5 class='pt-3 pb-3 registration-form__heading'>Register with The Seeker</h5>
-            {% csrf_token %}
-            {{ registration_form|crispy }}
-            <button type='submit' class="btn btn-outline-primary mt-3 registration-form__button">Create Account</button>
-        </form>
-    </div>
-    <p class="text-center">If you already have an account, <a href="{% url 'seeker_login' %}">login</a> instead.</p>
-</div>
-
+{% extends 'auth_base.html' %}
+{% block title %}Create account · Linktag{% endblock %}
+{% block auth_class %}registration{% endblock %}
+{% block story %}<h1>Make your<br class="desktop-break"> network work<br class="desktop-break"> for you.</h1><p>Create your account, upload your LinkedIn CSV, choose your tags, and find the people who matter.</p>{% endblock %}
+{% block form %}
+<form class="auth-form" method="post" action="{% url 'seeker_registration' %}">
+  {% csrf_token %}
+  <h2 class="sr-only">Create your account</h2>
+  {% if registration_form.non_field_errors %}<div class="form-error" role="alert">{{ registration_form.non_field_errors }}</div>{% endif %}
+  {% include 'includes/field.html' with field=registration_form.first_name label='First name' %}
+  {% include 'includes/field.html' with field=registration_form.last_name label='Last name' %}
+  {% include 'includes/field.html' with field=registration_form.email label='Email' %}
+  {% include 'includes/field.html' with field=registration_form.password1 label='Password' password=True %}
+  <p class="password-hint">Use at least 8 characters. Avoid common passwords or personal information.</p>
+  {% include 'includes/field.html' with field=registration_form.password2 label='Confirm password' password=True %}
+  <button type="submit" class="button">Create account</button>
+  <p class="auth-switch">Already have an account? <a href="{% url 'seeker_login' %}">Sign in</a></p>
+</form>
 {% endblock %}

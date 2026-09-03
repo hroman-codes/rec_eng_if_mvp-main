@@ -2,6 +2,11 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.views.generic import TemplateView
 from django.views.decorators.cache import never_cache
+from django.http import JsonResponse
+
+
+def health(request):
+    return JsonResponse({'status': 'ok'})
 
 
 def index(request):

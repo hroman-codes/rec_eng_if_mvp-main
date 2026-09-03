@@ -1,0 +1,11 @@
+{% extends 'base.html' %}{% load static %}
+{% block content %}
+<main class="auth-page {% block auth_class %}{% endblock %}" id="page-content">
+  <aside class="auth-brand">
+    {% include 'includes/logo.html' %}
+    <div class="auth-story">{% block story %}{% endblock %}</div>
+    <img class="tag-art" src="{% static 'images/tag-art.png' %}" alt="">
+  </aside>
+  <section class="auth-content" aria-label="{% block form_label %}Account access{% endblock %}">{% block form %}{% endblock %}</section>
+</main>
+{% endblock %}

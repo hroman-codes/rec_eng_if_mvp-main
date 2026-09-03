@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="dashboard">
+  <aside class="sidebar">
+    {% include 'includes/logo.html' with small=True %}
+    <nav aria-label="Workspace">
+      <a href="{% url 'seeker_dashboard' %}" {% if active_page == 'dashboard' %}class="active" aria-current="page"{% endif %}><i class="bi bi-people" aria-hidden="true"></i>Recommendations</a>
+      <a href="{% url 'seeker_roles_tags' %}" {% if active_page == 'tags' %}class="active" aria-current="page"{% endif %}><i class="bi bi-tag" aria-hidden="true"></i>Update tags</a>
+      <a href="{% url 'seeker_csv_upload' %}" {% if active_page == 'upload' %}class="active" aria-current="page"{% endif %}><i class="bi bi-upload" aria-hidden="true"></i>Import connections</a>
+    </nav>
+    <form method="post" action="{% url 'seeker_logout' %}" class="signout-form">{% csrf_token %}<button class="signout" type="submit"><i class="bi bi-box-arrow-right" aria-hidden="true"></i>Sign out</button></form>
+  </aside>
+  <main class="workspace" id="page-content">
+    <header class="workspace-header"><span class="greeting">Welcome back, {{ request.user.first_name|default:'friend'|title }}</span><span class="account"><i class="bi bi-person-circle" aria-hidden="true"></i> {{ request.user.first_name|default:'Your account'|title }}</span></header>
+    {% block workspace %}{% endblock %}
+  </main>
+</div>
+{% endblock %}

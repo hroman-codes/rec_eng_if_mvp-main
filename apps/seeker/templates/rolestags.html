@@ -1,55 +1,14 @@
-{% extends 'base.html' %}
-
-{% block content %}
-{% load static %}
-
-{% for message in messages %}
-    <div class="alert alert-success alert-dismissible fade show pb-0" role="alert">
-        <ul class="messages list-unstyled">
-            <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
-                <strong>{{ message }}</strong>
-            </li>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </ul>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-{% endfor %}
-
-<div class='container py-5' style='max-width: 600px'>
-    <div style="display: flex; align-items: center; gap: 1rem;">
-        <img src="{% static 'images/user-tag-solid.svg' %}" alt="Upload Icon" class="upload-icon" style="width: 48px; height: 48px; margin-bottom: 1rem;">
-        <h2 style="margin: 0; color: #4187C9;">Linktag</h2>
-    </div>
-    <br>
-    <br>
-    <h1>Tags</h1>
-
-    <form method='post' action="{% if matching_tags %}{% url 'seeker_roles_tags' search_query=form.search_query.value %}{% else %}{% url 'seeker_roles_tags' %}{% endif %}">
-        {% csrf_token %}
-        {% if matched_tags|length == 5 %}
-            <input type="text" name="search_query" value="{{ roles_tags_form.search_query.value }}" class="form-control" readonly>
-        {% else %}
-            {{ roles_tags_form.search_query }}
-        {% endif %}
-        <button type='submit' class="btn btn-outline-primary mt-3" {% if matched_tags|length == 5 %}disabled{% endif %}>Add Tag</button>
-
-        <a href="{% url 'clear_tags' %}">
-            <button type='button' class="btn btn-outline-danger mt-3">Clear Tags</button>
-        </a>
-        
-        <a href="{% url 'seeker_dashboard' %}">
-            <button type='button' class="btn btn-outline-secondary mt-3">Next</button>
-        </a>
-    </form>
-    <ul>
-        {% if matched_tags %}
-            {% for matched_tag in matched_tags %}
-                <li>{{ matched_tag }}</li>
-            {% endfor %}
-        {% else %}
-            <li>No matched tags</li>
-        {% endif %}
-    </ul>
-</div>
-
+{% extends 'workspace_base.html' %}
+{% block title %}Choose your tags · Linktag{% endblock %}
+{% block workspace %}
+<section class="setup-page">
+  <p class="eyebrow">Make your network work for you</p><h1>Find your people.</h1>
+  <p class="setup-description">Choose up to five roles. Your recommendations will match any of these tags.</p>
+  <p class="tag-count">Your role tags · {{ matched_tags|length }} of 5</p>
+  <div class="editable-tags">{% for tag in matched_tags %}<form method="post">{% csrf_token %}<span class="tag-chip">{{ tag }}<button name="remove" value="{{ tag }}" aria-label="Remove {{ tag }}">×</button></span></form>{% empty %}<p class="muted">No tags selected yet.</p>{% endfor %}</div>
+  <form class="add-tag" method="post">{% csrf_token %}{% include 'includes/field.html' with field=roles_tags_form.search_query label='Add a role' %}<button class="button outline" type="submit">Add</button></form>
+  <p class="muted">Try “Software Engineer”, “Product Manager”, “UX Designer”, “Recruiter”, or “Founder”.</p>
+  <div class="setup-actions"><a class="button" href="{% url 'seeker_dashboard' %}">View recommendations <i class="bi bi-arrow-right" aria-hidden="true"></i></a>{% if matched_tags %}<form method="post" action="{% url 'clear_tags' %}">{% csrf_token %}<button class="button quiet" type="submit">Clear tags</button></form>{% endif %}</div>
+  <p class="muted">Tags are kept for this signed-in session. Add or change them whenever your search changes.</p>
+</section>
 {% endblock %}

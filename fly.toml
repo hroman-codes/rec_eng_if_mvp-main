@@ -5,17 +5,17 @@
 
 app = 'linktag'
 primary_region = 'ewr'
-console_command = '/code/manage.py shell'
+console_command = 'python /app/manage.py shell'
 
 [build]
-[build.args]
-    STATIC_DIR = "/app/staticfiles"
+  dockerfile = "Dockerfile"
 
 [deploy]
   release_command = 'python manage.py migrate --noinput'
 
 [env]
   PORT = '8000'
+  DEBUG = 'false'
 
 [http_service]
   internal_port = 8000
@@ -24,6 +24,13 @@ console_command = '/code/manage.py shell'
   auto_start_machines = true
   min_machines_running = 0
   processes = ['app']
+
+  [[http_service.checks]]
+    interval = '15s'
+    timeout = '5s'
+    grace_period = '20s'
+    method = 'GET'
+    path = '/healthz/'
 
 [[vm]]
   memory = '1gb'

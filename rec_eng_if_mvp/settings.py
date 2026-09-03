@@ -28,7 +28,8 @@ env = environ.Env(
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Take environment variables from .env file
-environ.Env.read_env(BASE_DIR / '.env')
+if os.environ.get('DJANGO_READ_DOT_ENV', 'true').lower() == 'true':
+    environ.Env.read_env(BASE_DIR / '.env')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
@@ -108,15 +109,8 @@ DATABASES = {
     'default': env.db()
 }
 
-# Override database settings for local development
-if DEBUG:
-    ALLOWED_HOSTS = ['127.0.0.1']
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+# Respect DATABASE_URL in development too; tests use an isolated SQLite database.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -144,11 +138,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'build/static')
 ]
+if (BASE_DIR / 'build/static').exists():
+    STATICFILES_DIRS.append(BASE_DIR / 'build/static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.environ.get('STATIC_ROOT', os.path.join(BASE_DIR, 'staticfiles'))
 
 # Media files
 MEDIA_URL = '/media/'
@@ -158,7 +153,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Login URL
-LOGIN_URL = '/login/'
+LOGIN_URL = 'seeker_login'
 
 # Coverage configuration
 COVERAGE_MODULE_EXCLUDES = [

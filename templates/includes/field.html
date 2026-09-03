@@ -1,0 +1,8 @@
+<div class="field">
+  <label for="{{ field.id_for_label }}">{{ label|default:field.label|striptags }}{% if not field.field.required %} <span class="optional">(optional)</span>{% endif %}</label>
+  <div {% if password %}class="password-wrap"{% endif %}>
+    {{ field }}
+    {% if password %}<button type="button" data-password="{{ field.id_for_label }}" aria-label="Show {{ label|lower }}" aria-pressed="false"><i class="bi bi-eye" aria-hidden="true"></i></button>{% endif %}
+  </div>
+  {% if field.errors %}<div class="field-errors" id="{{ field.id_for_label }}_errors" role="alert">{{ field.errors }}</div>{% endif %}
+</div>

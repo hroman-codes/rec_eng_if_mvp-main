@@ -23,8 +23,7 @@ class Csv(models.Model):
         self.email = self.email.lower()
         self.company = self.company.lower()
         self.position = self.position.lower()
-        self.mini_bio = self.mini_bio.lower()
-        self.notes = self.notes.lower()
+        # Preserve the user's prose and formatting in editable details.
         super().save(*args, **kwargs)
     
     def __str__(self) -> str:

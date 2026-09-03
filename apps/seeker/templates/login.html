@@ -1,23 +1,14 @@
-{% extends 'base.html' %}
-{% load crispy_forms_tags %}
-{% load static %}
-
-{% block content %}
-
-<div class='container-fluid py-3 login-form'>
-    <div style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
-        <img src="{% static 'images/user-tag-solid.svg' %}" alt="Upload Icon" class="upload-icon" style="width: 48px; height: 48px; margin-bottom: 1rem;">
-        <h2 style="margin: 0; color: #4187C9;">Linktag</h2>
-    </div>
-    <div class='row'>
-        <form method='POST' class='card p-3 mt-5 registration-form__border' autocomplete='off'>
-            <h5 class='pt-3 pb-3 login-form__heading'>Login</h5>
-            {% csrf_token %}
-            {{ login_form|crispy }}
-            <button type='submit' class="btn btn-outline-primary mt-3 login-form__button">Submit</button>
-        </form>
-    </div>
-    <p class="text-center">If you dont' have an account, <a href="{% url 'seeker_registration' %}">register</a> instead.</p>
-</div>
-
+{% extends 'auth_base.html' %}
+{% block title %}Sign in · Linktag{% endblock %}
+{% block story %}<h1>Welcome<br class="desktop-break"> back</h1><p>Sign in to continue finding the right people in your network.</p>{% endblock %}
+{% block form %}
+<form class="auth-form" method="post" action="{% url 'seeker_login' %}">
+  {% csrf_token %}
+  <h2 class="sr-only">Sign in to Linktag</h2>
+  {% if login_form.non_field_errors %}<div class="form-error" role="alert">{{ login_form.non_field_errors }}</div>{% endif %}
+  {% include 'includes/field.html' with field=login_form.email label='Email' %}
+  {% include 'includes/field.html' with field=login_form.password label='Password' password=True %}
+  <button type="submit" class="button">Sign in</button>
+  <p class="auth-switch">New to Linktag? <a href="{% url 'seeker_registration' %}">Create an account</a></p>
+</form>
 {% endblock %}
